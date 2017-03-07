@@ -1,5 +1,5 @@
 /**
- * Copyright 2015 Orion, Inc.
+ * Copyright 2015 Orion Labs, Inc.
  * All rights reserved. Do not redistribute.
  *
  * @file sequencer.h
