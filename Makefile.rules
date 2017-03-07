@@ -1,0 +1,57 @@
+all:
+	$(MAKE) --no-print-directory test
+
+#######################################################
+# Hosted Unit Tests
+
+# make targets for test binaries
+
+.PHONY: test tests
+tests: test
+test:
+	$(MAKE) __runtest
+
+__runtest: $(addprefix $(TEST_BIN)_, $(TESTS)) $(addprefix run_$(TEST_BIN)_, $(TESTS))
+
+TEST_OBJDIR := build_test
+
+$(TEST_OBJDIR):
+	mkdir -p $(TEST_OBJDIR)
+
+$(TEST_OBJDIR)/%.o: %.cpp | $(TEST_OBJDIR)
+	$(E) [test] Compiling $<
+	$(C)$(TEST_CXX) -c $(DEFS) $(TEST_FLAGS) $(TEST_INCLUDES_COMMON) $(TEST_CCFLAGS) $(DEPFLAGS_TEST) $< -o $@
+
+$(TEST_OBJDIR)/%.o: %.c | $(TEST_OBJDIR)
+	$(E) [test] Compiling $<
+	$(C)$(TEST_CC) -c $(DEFS) $(TEST_FLAGS) $(TEST_INCLUDES_COMMON) $(TEST_CFLAGS) $(DEPFLAGS_TEST) $< -o $@
+
+TEST_OBJS_COMMON := $(addprefix $(TEST_OBJDIR)/, $(addsuffix .o, $(notdir $(basename $(TEST_SOURCES_COMMON)))))
+
+define make_test_target
+$(eval TEST_OBJS_$(1) := $(addprefix $(TEST_OBJDIR)/, $(addsuffix .o, $(notdir $(basename $(TEST_SOURCES_$(1)))))))
+
+$(TEST_OBJS_$(1)): | $(TEST_OBJDIR)
+
+$(TEST_BIN)_$(1): $(TEST_OBJS_$(1))
+	$(E) [test] Compiling unit tests for $(1)
+	$(C)$(TEST_CXX) $(TEST_CCFLAGS) $(TEST_FLAGS) $(TEST_INCLUDES_COMMON) -o $(TEST_BIN)_$(1) $(TEST_OBJS_$(1)) $(TEST_LDFLAGS)
+
+.PHONY: run_$(TEST_BIN)_$(1)
+run_$(TEST_BIN)_$(1): $(TEST_BIN)_$(1)
+	$(E) [test] Running unit tests for $(1)
+	$(C)$(dir $(TEST_BIN))$(notdir $(TEST_BIN))_$(1)
+endef
+$(foreach i,$(TESTS),$(eval $(call make_test_target,$(i))))
+
+
+#######################################################
+
+
+.PHONY: all clean test
+
+clean:
+	rm -rf .dep_test $(TEST_DIR) $(TEST_OBJDIR)
+
+# Include the automatically generated dep files, and make a folder for them if necessary
+include $(shell mkdir -p .dep_test) $(wildcard .dep_test/*)

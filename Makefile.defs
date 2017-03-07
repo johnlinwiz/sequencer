@@ -1,0 +1,73 @@
+#######################################################
+## Toolchain
+
+
+# are we on unix or windows?
+ifeq ($(origin COMSPEC), undefined)
+	UNAME := $(shell uname)
+    BASE_DIR := $(shell cd ../..; pwd)
+    PREFIX = arm-none-eabi-
+else
+	UNAME := Windows
+    TOOLS_DIR = "/c/Program Files (x86)/GNU Tools ARM Embedded/4.9 2014q4"
+    BASE_DIR = /c/src/obfw
+    PREFIX = $(TOOLS_DIR)/bin/arm-none-eabi-
+endif
+
+CC = $(PREFIX)gcc
+CXX = $(PREFIX)g++
+AR = $(PREFIX)ar
+AS = $(PREFIX)as
+LD = $(PREFIX)ld
+GDB = $(PREFIX)gdb
+READELF = $(PREFIX)readelf
+OBJCOPY = $(PREFIX)objcopy
+OBJDUMP = $(PREFIX)objdump
+CXXFILT = $(PREFIX)c++filt
+SIZE	= $(PREFIX)size
+
+# Handy newline variable
+define n
+
+
+endef
+
+#######################################################
+## Hosted Unit Test
+
+TEST_CC = gcc
+TEST_CXX = g++
+TEST_FLAGS_COMMON := -DTEST -Wno-pointer-arith -Wno-deprecated-declarations -g $(TEST_FLAGS_COMMON) -fPIC
+TEST_CFLAGS  := $(TEST_FLAGS_COMMON)
+TEST_CCFLAGS := $(TEST_FLAGS_COMMON) -fpermissive -O2
+TEST_LDFLAGS := -lcrypto $(TEST_LDFLAGS)
+TEST_FLAGS   := -DDEBUG -DENABLE_ASSERT
+
+#######################################################
+## Check for required programs
+# use $(call exists,[error,warning],[program to check for],<resolution>)
+exists = $(if $(filter x,x$(shell which $2)), \
+$(if $(filter error,$1), $(error Cannot find $2$3), $(warning Cannot find $2$3)),)
+
+ifneq ($(MAKECMDGOALS),$(filter $(MAKECMDGOALS),clean))
+$(call exists,error,$(CC))
+$(call exists,error,$(CXX))
+
+ifeq ($(MAKECMDGOALS),test)
+$(call exists,error,$(TEST_CXX),.$n gcc 4.8 or 4.9 is available via apt and homebrew)
+endif
+
+endif
+
+#######################################################
+## Build Options
+
+# Link-time garbage collection
+FLAGS += -ffunction-sections -fdata-sections
+LDFLAGS += -Wl,--gc-sections,-u,-IVT
+
+# Disable unwanted C++ features
+CCFLAGS += -fno-exceptions -fno-threadsafe-statics -fno-rtti -fno-use-cxa-atexit
+
+# Automatic makefile dependency generation flags
+DEPFLAGS_TEST = -MD -MP -MF .dep_test/$(@F).d
