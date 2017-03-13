@@ -7,19 +7,7 @@
 #######################################################
 ## Toolchain
 
-
-# are we on unix or windows?
-ifeq ($(origin COMSPEC), undefined)
-	UNAME := $(shell uname)
-    BASE_DIR := $(shell cd ../..; pwd)
-    PREFIX = arm-none-eabi-
-else
-	UNAME := Windows
-    TOOLS_DIR = "/c/Program Files (x86)/GNU Tools ARM Embedded/4.9 2014q4"
-    BASE_DIR = /c/src/obfw
-    PREFIX = $(TOOLS_DIR)/bin/arm-none-eabi-
-endif
-
+PREFIX =
 CC = $(PREFIX)gcc
 CXX = $(PREFIX)g++
 AR = $(PREFIX)ar
