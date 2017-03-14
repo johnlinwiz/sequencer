@@ -22,16 +22,11 @@
   The correct test results be:
 
   [test] Running unit tests for sequencer
-  Invalid sequence of len 0
   test/test_sequencer.cpp:170:test_EmptySequence_should_Error:PASS
   test/test_sequencer.cpp:171:test_IncompleteShortSequence_should_Fail:PASS
-  Sequence Complete!
   test/test_sequencer.cpp:172:test_ValidSequence_should_Succeed:PASS
-  Sequence Complete!
   test/test_sequencer.cpp:173:test_EmbeddedValidSequence_should_Succeed:PASS
-  Sequence Complete!
   test/test_sequencer.cpp:174:test_ValidMaxSequence_should_Succeed:PASS
-  Invalid sequence of len 17
   test/test_sequencer.cpp:175:test_TooLongSequences_should_Fail:PASS
   test/test_sequencer.cpp:176:test_InvalidKeyMidsequence_should_Fail:PASS
 
