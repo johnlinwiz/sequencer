@@ -34,7 +34,7 @@ TEST_CXX = g++
 TEST_FLAGS_COMMON := -DTEST -Wno-pointer-arith -Wno-deprecated-declarations -g $(TEST_FLAGS_COMMON) -fPIC
 TEST_CFLAGS  := $(TEST_FLAGS_COMMON)
 TEST_CCFLAGS := $(TEST_FLAGS_COMMON) -fpermissive -O2
-TEST_LDFLAGS := -lcrypto $(TEST_LDFLAGS)
+TEST_LDFLAGS := $(TEST_LDFLAGS)
 TEST_FLAGS   := -DDEBUG -DENABLE_ASSERT
 
 #######################################################
