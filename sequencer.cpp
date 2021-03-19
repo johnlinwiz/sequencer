@@ -40,6 +40,8 @@ bool validKeyCheck(SequencerButtons_t key) {
                 return false;   // invalid -> fail
                 break;
             case SEQUENCER_A_UP:
+                // this func could be modified to process key press in the future, and
+                // this is the "case" that can be used to do something when key pressed:
             case SEQUENCER_A_DOWN:
             case SEQUENCER_B_UP:
             case SEQUENCER_B_DOWN:
@@ -54,10 +56,6 @@ bool validKeyCheck(SequencerButtons_t key) {
                 break;
         }
     }
-}
-
-bool validSeqCheck() {
-
 }
 
 /// Register a sequence and callback to be invoked when the sequence has
@@ -80,6 +78,8 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
                 printf("{%i}", seq[i]);
             }
         #endif
+
+        // start the State Machine:
 
     }
 
