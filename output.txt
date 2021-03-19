@@ -1,0 +1,15 @@
+make __runtest
+make[1]: Entering directory '/home/johnlin/Downloads/sequencer'
+[test] Running unit tests for sequencer
+test/test_sequencer.cpp:180:test_EmptySequence_should_Error:PASS
+test/test_sequencer.cpp:181:test_IncompleteShortSequence_should_Fail:PASS
+test/test_sequencer.cpp:182:test_ValidSequence_should_Succeed:PASS
+test/test_sequencer.cpp:183:test_EmbeddedValidSequence_should_Succeed:PASS
+test/test_sequencer.cpp:184:test_ValidMaxSequence_should_Succeed:PASS
+test/test_sequencer.cpp:185:test_TooLongSequences_should_Fail:PASS
+test/test_sequencer.cpp:187:test_InvalidKeyMidsequence_should_Fail:PASS
+
+-----------------------
+7 Tests 0 Failures 0 Ignored 
+OK
+make[1]: Leaving directory '/home/johnlin/Downloads/sequencer'
