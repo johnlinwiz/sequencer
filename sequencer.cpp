@@ -33,6 +33,35 @@ void Sequencer::Init_() {
     callbackParamsLen_ = 0;
 }
 
+bool validKeyCheck(SequencerButtons_t key) {
+    if (key > SEQUENCER_MAX) {  // fail when it exceed Max len
+        return false;
+    } else {
+        switch(key) {
+            case SEQUENCER_BUTTON_INVALID:
+                return false;   // invalid -> fail
+                break;
+            case SEQUENCER_A_UP:
+            case SEQUENCER_A_DOWN:
+            case SEQUENCER_B_UP:
+            case SEQUENCER_B_DOWN:
+            case SEQUENCER_C_UP:
+            case SEQUENCER_C_DOWN:
+            case SEQUENCER_D_UP:
+            case SEQUENCER_D_DOWN:
+                return true;    // valid keys -> great!
+                break;
+            default:
+                return false;   // unexpected -> fail
+                break;
+        }
+    }
+}
+
+bool validSeqCheck() {
+    
+}
+
 /// Register a sequence and callback to be invoked when the sequence has
 /// been matched.  If memory was allocated for the params, the caller is
 /// responsible for freeing that memory.
