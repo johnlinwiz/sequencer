@@ -45,12 +45,18 @@ void Sequencer::Init_() {
 bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, SequencerCb_Fn cb,
                                  uint8_t *params, uint32_t paramsLen) 
 {
-    #ifdef DEBUG
-        for (int i; i < numElem; i++) {
-            printf("{%i}", seq[i]);
-        }
-    #endif
+    if (numElem > SEQUENCE_MAX_LEN) {   // if numElem exceeds the max length
+        return false;   // FAIL
+    } else {
+        #ifdef DEBUG
+            for (int i; i < numElem; i++) {
+                printf("{%i}", seq[i]);
+            }
+        #endif
 
+    }
+
+    return false;   // fail if reached this point for some unexpected reason!
 }
 
 /// Unregister a sequence and callback.
