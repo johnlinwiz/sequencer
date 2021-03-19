@@ -16,7 +16,7 @@
 
 // DEBUG FLAG (to be removed in final stage)
 // should be in the headerfile, but the headerfile is asked not to be modified...
-#define DEBUG
+#define _DEBUG
 
 Sequencer::Sequencer() {
 
@@ -59,7 +59,7 @@ bool validKeyCheck(SequencerButtons_t key) {
 }
 
 bool validSeqCheck() {
-    
+
 }
 
 /// Register a sequence and callback to be invoked when the sequence has
@@ -77,7 +77,7 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
     if (numElem > SEQUENCE_MAX_LEN) {   // if numElem exceeds the max length
         return false;   // FAIL
     } else {
-        #ifdef DEBUG
+        #ifdef _DEBUG
             for (int i; i < numElem; i++) {
                 printf("{%i}", seq[i]);
             }
@@ -98,7 +98,7 @@ void Sequencer::UnregisterSequence() {
 /// Add a button event.  This method is invoked each time an event (such as a button press) occurs.
 /// @param The new button event
 void Sequencer::AddEvent(SequencerButtons_t event) {
-    #ifdef DEBUG
+    #ifdef _DEBUG
         printf("[%i]", event);
     #endif
 
@@ -106,7 +106,7 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
         sequence_[sequenceIdx_] = event;    // store the event into the sequence array
         sequenceIdx_++;
     } else {    // overflow
-        #ifdef DEBUG
+        #ifdef _DEBUG
             printf("[AddEvent] ERROR: Sequence Length Too Long!");
         #endif
         sequenceIdx_ = SEQUENCE_MAX_LEN - 1;    // index set to the MAX; to avoid overflow
