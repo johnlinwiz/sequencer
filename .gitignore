@@ -2,3 +2,6 @@
 .piolibdeps
 .clang_complete
 .gcc-flags.json
+build_test
+.dep_test
+.vscode
