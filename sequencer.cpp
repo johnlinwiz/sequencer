@@ -112,6 +112,9 @@ void Sequencer::UnregisterSequence() {
 /// Add a button event.  This method is invoked each time an event (such as a button press) occurs.
 /// @param The new button event
 void Sequencer::AddEvent(SequencerButtons_t event) {
+    bool status;
+    bool match = false;
+
     #ifdef _DEBUG
         printf("[%i]", event);
     #endif
@@ -120,7 +123,15 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
         sequence_[sequenceIdx_] = event;    // store the event into the sequence array
         sequenceIdx_++;
 
-        callback_(callbackParams_, callbackParamsLen_); // calling the callback func
+
+
+        status = callback_(callbackParams_, callbackParamsLen_); // calling the callback func
+
+        // assign params the status result for the search
+        if (callbackParamsLen_ == sizeof(bool)) {
+            bool *b = (bool *)callbackParams_;
+            *b = match;
+        }
     } else {    // overflow
         #ifdef _DEBUG
             printf("[AddEvent] ERROR: Sequence Length Too Long!");
