@@ -63,7 +63,7 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
 void Sequencer::UnregisterSequence() {
     // XXX IMPLEMENT ME - see sequencer.h for description
 
-
+    Init_();    // init already unregister a sequence and callback
 }
 
 /// Add a button event.  This method is invoked each time an event (such as a button press) occurs.
