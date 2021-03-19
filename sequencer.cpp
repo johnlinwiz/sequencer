@@ -19,6 +19,7 @@
 #define _DEBUG
 
 Sequencer::Sequencer() {
+    Init_();    // call init when class just constructed
 
 }
 
@@ -89,6 +90,10 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
 /// Unregister a sequence and callback.
 void Sequencer::UnregisterSequence() {
     // XXX IMPLEMENT ME - see sequencer.h for description
+
+    #ifdef _DEBUG
+        printf("[UnregisterSequence]");
+    #endif
 
     //Init_();    // init already unregister a sequence and callback
     // moved Init_() here since init might be doing other Init in the future..
