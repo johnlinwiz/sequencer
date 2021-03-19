@@ -26,11 +26,9 @@ Sequencer::~Sequencer() {
 }
 
 void Sequencer::Init_() {
-    memset(sequence_, 0, sizeof(sequence_));
-    sequenceIdx_= 0;
-    callback_ = NULL;
-    callbackParams_ = NULL;
-    callbackParamsLen_ = 0;
+    UnregisterSequence();   // Unregister seq and callback
+
+    // other init stuff...
 }
 
 bool validKeyCheck(SequencerButtons_t key) {
@@ -92,7 +90,13 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
 void Sequencer::UnregisterSequence() {
     // XXX IMPLEMENT ME - see sequencer.h for description
 
-    Init_();    // init already unregister a sequence and callback
+    //Init_();    // init already unregister a sequence and callback
+    // moved Init_() here since init might be doing other Init in the future..
+    memset(sequence_, 0, sizeof(sequence_));
+    sequenceIdx_= 0;
+    callback_ = NULL;
+    callbackParams_ = NULL;
+    callbackParamsLen_ = 0;
 }
 
 /// Add a button event.  This method is invoked each time an event (such as a button press) occurs.
