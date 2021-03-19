@@ -125,9 +125,28 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
         printf("[%i]", event);
     #endif
 
+    if (sequenceIdx_ < SEQUENCE_MAX_LEN) {          // no exceeding index max
+        if (sequence_[sequenceIdx_] != 0x00) { // not yet end of sequence matching
+            #ifdef _DEBUG
+                printf("(%i, %i:%i)", event, sequenceIdx_, sequence_[sequenceIdx_]);
+            #endif
+            if (event == sequence_[sequenceIdx_]) {
+                sequenceIdx_++;
+
+                if(sequence_[sequenceIdx_] == 0x00) {
+                    #ifdef _DEBUG
+                        printf("[M]");
+                    #endif
+                    match = true;   // match complete
+                }
+            } else {
+                sequenceIdx_ = 0; // reset the index if match failed; start over
+            }
+        }
+    }
 
     status = callback_(callbackParams_, callbackParamsLen_); // calling the callback func
-    if (!status) match = false;     // if callback failed -> match fail (?)
+    //if (!status) match = false;     // if callback failed -> match fail (?)
 
     // assign params the status result for the search
     if (callbackParamsLen_ == sizeof(bool)) {
