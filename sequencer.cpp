@@ -16,7 +16,7 @@
 
 // DEBUG FLAG (to be removed in final stage)
 // should be in the headerfile, but the headerfile is asked not to be modified...
-#define _DEBUG
+//#define _DEBUG
 
 Sequencer::Sequencer() {
     Init_();    // call init when class just constructed
@@ -133,9 +133,14 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
             if (event == sequence_[sequenceIdx_]) {
                 sequenceIdx_++;
 
-                if(sequence_[sequenceIdx_] == 0x00) {
+                if (sequenceIdx_ >= SEQUENCE_MAX_LEN) {
                     #ifdef _DEBUG
-                        printf("[M]");
+                        printf("[M2]");
+                    #endif
+                    match = true;   // match complete
+                } else if (sequence_[sequenceIdx_] == 0x00) {
+                    #ifdef _DEBUG
+                        printf("[M1]");
                     #endif
                     match = true;   // match complete
                 }
