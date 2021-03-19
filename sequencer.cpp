@@ -59,6 +59,13 @@ bool validKeyCheck(SequencerButtons_t key) {
     }
 }
 
+bool callBackStateMachine(uint8_t *params, uint32_t params_len) {
+    // start the State Machine:
+    #ifdef _DEBUG
+        printf("[CB P%i]", params_len);
+    #endif
+}
+
 /// Register a sequence and callback to be invoked when the sequence has
 /// been matched.  If memory was allocated for the params, the caller is
 /// responsible for freeing that memory.
@@ -82,8 +89,7 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
             }
         #endif
 
-        // start the State Machine:
-
+        cb = &callBackStateMachine; // register the callback func
     }
 
     return false;   // fail if reached this point for some unexpected reason!
