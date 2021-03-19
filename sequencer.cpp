@@ -126,6 +126,7 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
 
 
         status = callback_(callbackParams_, callbackParamsLen_); // calling the callback func
+        if (!status) match = false;     // if callback failed -> match fail (?)
 
         // assign params the status result for the search
         if (callbackParamsLen_ == sizeof(bool)) {
