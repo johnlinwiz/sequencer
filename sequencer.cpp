@@ -67,11 +67,14 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
         printf("[%i]", event);
     #endif
 
-    if (sequenceIdx_ < SEQUENCE_MAX_LEN) {
-        sequence_[sequenceIdx_] = event;
+    if (sequenceIdx_ < (SEQUENCE_MAX_LEN - 1) ) { // index within range
+        sequence_[sequenceIdx_] = event;    // store the event into the sequence array
         sequenceIdx_++;
-    } else {
-        printf("ERROR: Sequence Length Too Long!");
+    } else {    // overflow
+        #ifdef DEBUG
+            printf("[AddEvent] ERROR: Sequence Length Too Long!");
+        #endif
+        sequenceIdx_ = SEQUENCE_MAX_LEN - 1;    // index set to the MAX; to avoid overflow
     }
 }
 
