@@ -59,10 +59,10 @@ bool validKeyCheck(SequencerButtons_t key) {
     }
 }
 
-bool callBackStateMachine(uint8_t *params, uint32_t params_len) {
+bool SearchMachine() {
     // start the State Machine:
     #ifdef _DEBUG
-        printf("[CB P%i]", params_len);
+        printf("[SM]");
     #endif
 }
 
@@ -89,7 +89,9 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
             }
         #endif
 
-        cb = &callBackStateMachine; // register the callback func
+        callback_ = cb; // register the callback func
+        callbackParams_ = params;   // register the params
+        callbackParamsLen_ = paramsLen;
 
         return true;    // registeration succeed
     }
@@ -124,11 +126,14 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
     if (sequenceIdx_ < (SEQUENCE_MAX_LEN - 1) ) { // index within range
         sequence_[sequenceIdx_] = event;    // store the event into the sequence array
         sequenceIdx_++;
+
+        callback_(callbackParams_, callbackParamsLen_); // calling the callback func
     } else {    // overflow
         #ifdef _DEBUG
             printf("[AddEvent] ERROR: Sequence Length Too Long!");
         #endif
         sequenceIdx_ = SEQUENCE_MAX_LEN - 1;    // index set to the MAX; to avoid overflow
+        // not calling the callback since already checked the last time
     }
 }
 
