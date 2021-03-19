@@ -1,7 +1,4 @@
 ############################################
-# Copyright 2017 Orion Labs, Inc.
-# All rights reserved. Do not redistribute.
-############################################
 
 ifeq ($(V),1)
 # if user specifies V=1, print full compile commands

@@ -1,4 +1,4 @@
-### Orion FW Coding Problem - Sequence Detection
+### FW Coding Problem - Sequence Detection
   The sequencer is a component that is used to detect a specific sequence of
   events and do something in response.  For instance, the application may want
   to switch on special LED lights if the user presses `A_UP`, `A_DOWN`,
@@ -43,6 +43,3 @@
 ### Requirements
   * C++ compiler (e.g. g++)
   * make
-
-#### Copyright
-Copyright 2017 Orion Labs, Inc.  All rights reserved. Do not redistribute.

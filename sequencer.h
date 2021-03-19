@@ -1,7 +1,4 @@
 /**
- * Copyright 2015 Orion Labs, Inc.
- * All rights reserved. Do not redistribute.
- *
  * @file sequencer.h
  *
  * @brief Register a sequence of buttons to match and a callback for when that
@@ -64,8 +61,6 @@ class Sequencer {
     // Currently only one sequence can be registered at a time.
     SequencerButtons_t sequence_[SEQUENCE_MAX_LEN];
     uint8_t sequenceIdx_;
-    uint8_t sequenceNumElem_;
-
     SequencerCb_Fn callback_;
     uint8_t *callbackParams_;
     uint32_t callbackParamsLen_;

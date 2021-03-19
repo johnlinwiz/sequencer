@@ -1,6 +1,5 @@
 /**
- * Copyright 2017 Orion Labs, Inc.
- * All rights reserved. Do not redistribute.
+ *
  */
 
 #include <stdio.h>
@@ -42,6 +41,8 @@ void test_IncompleteShortSequence_should_Fail(void) {
     seq->AddEvent(SEQUENCER_A_DOWN);
     seq->AddEvent(SEQUENCER_A_UP);
     TEST_ASSERT_FALSE(cbCalled);
+    delete seq;
+
 }
 
 void test_ValidSequence_should_Succeed(void) {
@@ -71,6 +72,8 @@ void test_ValidSequence_should_Succeed(void) {
     seq->AddEvent(SEQUENCER_B_UP);
 
     TEST_ASSERT_TRUE(cbCalled);
+    delete seq;
+
 }
 
 void test_EmbeddedValidSequence_should_Succeed(void) {
@@ -101,6 +104,8 @@ void test_EmbeddedValidSequence_should_Succeed(void) {
     seq->AddEvent(SEQUENCER_A_DOWN);
 
     TEST_ASSERT_TRUE(cbCalled);
+    delete seq;
+
 }
 
 void test_ValidMaxSequence_should_Succeed(void) {
@@ -124,6 +129,8 @@ void test_ValidMaxSequence_should_Succeed(void) {
     }
 
     TEST_ASSERT_TRUE(cbCalled);
+    delete seq;
+
 }
 
 void test_TooLongSequences_should_Fail(void) {
@@ -133,6 +140,7 @@ void test_TooLongSequences_should_Fail(void) {
 
     TEST_ASSERT_FALSE(seq->RegisterSequence(&sequence[0], NELEM(sequence),
                                            sequenceComplete, (uint8_t *)&cbCalled, sizeof(cbCalled)));
+                                           delete seq;
 }
 
 void test_InvalidKeyMidsequence_should_Fail(void) {
@@ -163,16 +171,19 @@ void test_InvalidKeyMidsequence_should_Fail(void) {
     seq->AddEvent(SEQUENCER_B_UP);
 
     TEST_ASSERT_FALSE(cbCalled);
+    delete seq;
 }
 
 int main(void) {
     UNITY_BEGIN();
+  #if 1
     RUN_TEST(test_EmptySequence_should_Error);
     RUN_TEST(test_IncompleteShortSequence_should_Fail);
     RUN_TEST(test_ValidSequence_should_Succeed);
     RUN_TEST(test_EmbeddedValidSequence_should_Succeed);
     RUN_TEST(test_ValidMaxSequence_should_Succeed);
     RUN_TEST(test_TooLongSequences_should_Fail);
+    #endif
     RUN_TEST(test_InvalidKeyMidsequence_should_Fail);
     return UNITY_END();
 }

@@ -1,6 +1,4 @@
 /**
- * Copyright 2017 Orion Labs, Inc.
- * All rights reserved. Do not redistribute.
  *
  * @file sequencer.h
  *
@@ -17,11 +15,10 @@
 #include "sequencer.h"
 
 Sequencer::Sequencer() {
-    Init_();
+
 }
 
 Sequencer::~Sequencer() {
-    Init_();
 }
 
 void Sequencer::Init_() {
@@ -35,19 +32,18 @@ void Sequencer::Init_() {
 bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, SequencerCb_Fn cb,
                                  uint8_t *params, uint32_t paramsLen) {
     // XXX IMPLEMENT ME - see sequencer.h for description
-    // 1) Ensure input is correct
-    // 2) Register the sequence for detection
-    return true;
+
 }
 
 void Sequencer::UnregisterSequence() {
     // XXX IMPLEMENT ME - see sequencer.h for description
+
+
 }
 
 void Sequencer::AddEvent(SequencerButtons_t event) {
     // XXX IMPLEMENT ME - see sequencer.h
-    // 1) Check the base case
-    // 2) Check events if they match the seqeuence.
+
 }
 
 /// @}

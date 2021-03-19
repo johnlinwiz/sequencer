@@ -1,7 +1,4 @@
 ############################################
-# Copyright 2017 Orion Labs, Inc.
-# All rights reserved. Do not redistribute.
-############################################
 
 all:
 	$(MAKE) --no-print-directory test
