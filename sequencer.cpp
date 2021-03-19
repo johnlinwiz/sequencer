@@ -82,6 +82,12 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
             }
         #endif
 
+        for (int i; i<numElem; i++) {
+            sequence_[i] = seq[i];
+        }
+
+        sequenceIdx_ = 0;   // reset sequence index
+
         callback_ = cb; // register the callback func
         callbackParams_ = params;   // register the params
         callbackParamsLen_ = paramsLen;
@@ -119,26 +125,14 @@ void Sequencer::AddEvent(SequencerButtons_t event) {
         printf("[%i]", event);
     #endif
 
-    if (sequenceIdx_ < (SEQUENCE_MAX_LEN - 1) ) { // index within range
-        sequence_[sequenceIdx_] = event;    // store the event into the sequence array
-        sequenceIdx_++;
 
+    status = callback_(callbackParams_, callbackParamsLen_); // calling the callback func
+    if (!status) match = false;     // if callback failed -> match fail (?)
 
-
-        status = callback_(callbackParams_, callbackParamsLen_); // calling the callback func
-        if (!status) match = false;     // if callback failed -> match fail (?)
-
-        // assign params the status result for the search
-        if (callbackParamsLen_ == sizeof(bool)) {
-            bool *b = (bool *)callbackParams_;
-            *b = match;
-        }
-    } else {    // overflow
-        #ifdef _DEBUG
-            printf("[AddEvent] ERROR: Sequence Length Too Long!");
-        #endif
-        sequenceIdx_ = SEQUENCE_MAX_LEN - 1;    // index set to the MAX; to avoid overflow
-        // not calling the callback since already checked the last time
+    // assign params the status result for the search
+    if (callbackParamsLen_ == sizeof(bool)) {
+        bool *b = (bool *)callbackParams_;
+        *b = match;
     }
 }
 
