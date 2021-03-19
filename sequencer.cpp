@@ -90,6 +90,8 @@ bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, Seque
         #endif
 
         cb = &callBackStateMachine; // register the callback func
+
+        return true;    // registeration succeed
     }
 
     return false;   // fail if reached this point for some unexpected reason!
