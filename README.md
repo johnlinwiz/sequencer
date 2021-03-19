@@ -1,20 +1,24 @@
-### FW Coding Problem - Sequence Detection
+# FW Coding Problem - Sequence Detection
+
   The sequencer is a component that is used to detect a specific sequence of
   events and do something in response.  For instance, the application may want
   to switch on special LED lights if the user presses `A_UP`, `A_DOWN`,
   `A_UP`, `A_DOWN`, `B_DOWN`, `B_UP`.
 
-### Problem
-  Your task is to implement the following methods (in sequencer.cpp):
-  * RegisterSequence
-  * UnregisterSequence
-  * AddEvent
+## Problem
 
-  The descriptions of these methods are in the sequencer.h header file.  The
-  header file is complete and no modifications should be necessary. Note that
-  currently only one sequence can be registered at a time.
+Your task is to implement the following methods (in sequencer.cpp):
 
-### Expected Results
+* RegisterSequence
+* UnregisterSequence
+* AddEvent
+
+The descriptions of these methods are in the sequencer.h header file.  The
+header file is complete and no modifications should be necessary. Note that
+currently only one sequence can be registered at a time.
+
+## Expected Results
+
   We have provided a set of unit tests that should pass when you have correctly
   implemented the required methods.  To run these, type:
   `make test`
@@ -34,12 +38,15 @@
   7 Tests 0 Failures 0 Ignored
   OK
 
-### Evaluation
-  The code will be evaluated for
-  * correctness
-  * completeness
-  * coding style
+## Evaluation
 
-### Requirements
-  * C++ compiler (e.g. g++)
-  * make
+The code will be evaluated for
+
+* correctness
+* completeness
+* coding style
+
+## Requirements
+
+* C++ compiler (e.g. g++)
+* make
