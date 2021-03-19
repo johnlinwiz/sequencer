@@ -71,7 +71,9 @@ bool validKeyCheck(SequencerButtons_t key) {
 bool Sequencer::RegisterSequence(SequencerButtons_t *seq, uint8_t numElem, SequencerCb_Fn cb,
                                  uint8_t *params, uint32_t paramsLen) 
 {
-    if (numElem > SEQUENCE_MAX_LEN) {   // if numElem exceeds the max length
+    if (numElem == 0) { // if there is nothing to compare to:
+        return false;   // FAIL
+    } else if (numElem > SEQUENCE_MAX_LEN) {   // if numElem exceeds the max length
         return false;   // FAIL
     } else {
         #ifdef _DEBUG
