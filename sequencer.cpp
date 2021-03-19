@@ -59,13 +59,6 @@ bool validKeyCheck(SequencerButtons_t key) {
     }
 }
 
-bool SearchMachine() {
-    // start the State Machine:
-    #ifdef _DEBUG
-        printf("[SM]");
-    #endif
-}
-
 /// Register a sequence and callback to be invoked when the sequence has
 /// been matched.  If memory was allocated for the params, the caller is
 /// responsible for freeing that memory.
